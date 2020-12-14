@@ -1,0 +1,119 @@
+<!-- <div class="container">
+    <h1>Sign-up form</h1>
+
+    <form #signupform="ngForm" (ngSubmit)="onSubmit(signupform)">
+
+        <div class="form-group">
+            <label for="first_name">First Name</label>
+            <input  type="text" class="form-control" required 
+                    name="first_name" [(ngModel)]="first_name">
+        </div>
+
+         Pristine:  {{ signupform.controls['first_name'].pristine}}
+        Touched:  {{ signupform.controls['first_name'].touched}}
+        valid:  {{ signupform.controls['first_name'].valid}}
+        invalid:  {{ signupform.controls['first_name'].invalid}} 
+
+        <div    class="alert alert-danger"
+                *ngIf=" signupform.controls['first_name'] && 
+                        signupform.controls['first_name'].touched == true && 
+                        signupform.controls['first_name'].invalid == true">
+            First name is required
+        </div>
+
+        <div class="form-group">
+            <label for="first_name">Last Name</label>
+            <input  type="text" class="form-control" 
+                    name="last_name" [(ngModel)]="last_name">
+        </div>
+
+        <button class="btn btn-success" type="submit"
+                [disabled]="signupform.invalid == true">Submit</button>
+ 
+    </form>
+</div> -->
+
+<div class="container">
+
+    <div class="row">
+        <div class="offset-sm-2 col-sm-8"> <!--offset-sm leaves some space to the left of conteent 2 specifies the cols-->
+            <div class="card text-blank border-0 ">
+                <div class="card-body">
+                    <div class="card-title text-center">
+                        <h5>Sign up for free</h5>
+                    </div>
+
+                    <div class="card-text">
+                        <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+                            <div class="form-row">
+                                <div class="form-group col-sm-6"> <!--takes half the width-->
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="First Name" 
+                                            [formControl]="myForm.controls['firstName']">
+                                </div>
+                                <div class="form-group col-sm-6"> <!--takes half the width-->
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="Last Name" 
+                                            [formControl]="myForm.controls['lastName']">
+                                </div>
+                            </div>
+
+                            <div class="alert alert-danger" 
+                                 *ngIf="(!myForm.controls['firstName'].valid  || 
+                                         !myForm.controls['lastName'].valid) && 
+                                        (myForm.controls['firstName'].touched || 
+                                         myForm.controls['lastName'].touched)">
+                                First and Last name are required.
+                            </div>
+
+                            <div class="form-group">
+                                <input  type="email" 
+                                        placeholder="Enter your Email" 
+                                        class="form-control" 
+                                        [formControl]="myForm.controls['email']">
+                            </div>
+                            
+                            <div class="alert alert-danger" 
+                                *ngIf="(!myForm.controls['email'].valid && 
+                                        myForm.controls['email'].touched)">
+                                A valid Email is required.
+                            </div>
+
+
+                            <div class="form-group">
+                                <input  type="password" 
+                                        placeholder="Password" 
+                                        class="form-control" 
+                                        [formControl]="myForm.controls['password']"> 
+                            </div>
+
+                            <div class="form-group">
+                                <input  type="password" 
+                                        placeholder="Confirm Password" 
+                                        class="form-control" 
+                                        [formControl]="myForm.controls['confirmPassword']">
+                            </div>
+                            
+                            <div class="alert alert-danger" 
+                            *ngIf="(!myForm.controls['password'].valid && 
+                                    myForm.controls['password'].touched)">
+                                Password should be atleast 8 characters long.
+                            </div>
+
+                            
+                            <div class="text-center">
+                                <button type="submit" 
+                                        class="btn btn-block btn-warning" 
+                                        [disabled]="!myForm.valid">Submit</button>
+                            </div>
+                        </form>
+
+                        {{ myForm.controls['confirmPassword'].errors | json }}
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

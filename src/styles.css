@@ -1,0 +1,89 @@
+/* You can add global styles to this file, and also import other style files */
+body
+{
+    background-color: #E3E3E3;
+    overflow-x: hidden;
+    position: relative;
+    height: 100%;
+    margin: 0;
+    display: block;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+}
+.ui-app {
+    display: flex;
+}
+
+.card
+{   
+    margin-left: 2%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    position: relative;
+    transition: box-shadow .25s;
+    border-radius: 20px;
+    background-color: #fff;
+    width:96vw;
+
+}
+.right_cards
+{
+    margin: 2%;
+    position: relative;
+    transition: box-shadow .25s;
+    border-radius: 20px;
+    border: 1px solid lightgrey;
+    background-color: #ededed;
+    width:96%;
+}
+.card-body
+{
+    padding: 12px 12px 12px 12px;
+}
+.card-headline
+{    
+    line-height: 30px;
+    margin: 0px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.card-content
+{
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.font_nav_top_heading
+{
+    font-size: 23px!important;
+    color: white!important;
+    margin: 0px!important;
+    text-align: center;
+}
+.font_nav_right_developer
+{
+    color: white!important;
+    margin: 0px!important;
+}
+.form-group
+{
+    margin-bottom: 10px!important;
+}
+label
+{
+    color: gray;
+    font-size: 13px!important;
+    font-weight: 700;
+}
+.errorMessage
+{
+    margin-top: 10px;
+}
+.form-control-sm
+{
+    font-size: 13px!important;
+}
+html{
+    scroll-behavior: smooth;
+}

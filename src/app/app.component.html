@@ -1,0 +1,405 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<!-- <app-menu></app-menu> -->
+<!-- <app-signup></app-signup> -->
+<!-- <app-menu></app-menu> -->
+<!-- <app-stack-api></app-stack-api>
+<router-outlet></router-outlet> -->
+ <nav class="navbar navbar-dark bg-dark row" style="width: 100vw;">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 navbar-brand" style="margin: 0px!important;font-size: 18px;">
+        Stack Exchange API
+    </div>
+    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 font_nav_top_heading">
+        Search Questions on StackOverflow
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 font_nav_right_developer">
+    </div>
+</nav>
+<div class="ui-app">
+    <main>
+    <div class="card">
+    <div class="card-body">
+        <div class="card-headline" style="padding-left: 12px;">
+            Get stackoverflow questions based on following filters.
+        </div>
+        <div class="card-content">
+        <form [formGroup]="apicallform" (ngSubmit)="search(apicallform)">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8" style="border-right: 2px dotted gray;padding-left: 25px;">
+                    <div class="row"> 
+                            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                                <label>Question</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                                <input  style="width: 98%;" class="form-control form-control-sm" formControlName="question" type="text" placeholder="Enter Question">
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                                <p style="margin-top: -6px;margin-bottom: 0px;">Text parameter that will match all question properties.</p>
+                            </div>
+                    </div>
+
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Title</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <input  style="width: 98%;" class="form-control form-control-sm" formControlName="title" type="text" placeholder="Enter Title">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Text which must appear in returned questions' titles.</p>
+                        </div>
+                    </div>
+
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Body</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <input  style="width: 98%;" class="form-control form-control-sm" formControlName="body" type="text" placeholder="Enter Body Text">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Text parameter that will match all question properties.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Tag(s)</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <input  style="width: 98%;" class="form-control form-control-sm" formControlName="tag" type="text" placeholder="Enter Tag(s)">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Tags separated by semicolon(;). example - Angular;Json</p>
+                        </div>
+                    </div>
+
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>No. of Answers</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <input  style="width: 98%;" class="form-control form-control-sm" formControlName="anscount" type="number" placeholder="Enter min no. of answers">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Minimum number of answers returned questions must have.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>View Count</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <input  style="width: 98%;" class="form-control form-control-sm" formControlName="view" type="number" placeholder="Enter min no. of views">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Minimum number of views returned questions must have.</p>
+                        </div>
+                    </div>
+
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>User ID</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <input  style="width: 98%;" class="form-control form-control-sm" formControlName="userid" type="number" placeholder="Enter User ID">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">The id of the user who must own the questions returned.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>URL</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <input style="width: 98%;" class="form-control form-control-sm" formControlName="url" type="email"
+                                placeholder="Enter URL">
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">A url which must be contained in a post(Question/Answer).</p>
+                        </div>
+                    </div>
+
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Sort by</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <select class="form-control form-control-sm" formControlName="sortby" style="width: 98%;">
+                                <option value="activity">Activity</option>
+                                <option value="votes">Votes</option>
+                                <option value="creation">Creation</option>
+                                <option value="relevance">Relevance</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Sort the result by activity, creation, votes and relevance.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">  
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Sorting Order</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <select class="form-control form-control-sm" formControlName="orderby" style="width: 98%;">
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Sort the result in ascending or descending order.</p>
+                        </div>
+                    </div>
+
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Accepted Answers</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <select class="form-control form-control-sm" formControlName="accepted" style="width: 98%;">
+                                <option value="">Select </option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Select True/False to return only questions with accepted/not accepted answers.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Question Closed</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <select class="form-control form-control-sm" formControlName="closed" style="width: 98%;">
+                                <option value="">Select </option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Select True/False to return Closed/Open questions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Migrated Question</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <select class="form-control form-control-sm" formControlName="migrated" style="width: 98%;">
+                                <option value="">Select </option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Select True to return only questions migrated away from a site.</p>
+                        </div>
+                    </div>
+
+                    <div class="row"> 
+                        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 form-group form-inline">
+                            <label>Wiki Question</label>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 form-group form-inline">
+                            <select class="form-control form-control-sm" formControlName="wiki" style="width: 98%;">
+                                <option value="">Select </option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 form-group form-inline">
+                            <p style="margin-top: -6px;margin-bottom: 0px;">Select True to return only community wiki questions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" >
+                    <div class="card-body right_cards" style="margin-top: 25%;">
+                        <div class="card-headline" style="text-align: center;">
+                            Click on Search button to fetch the result.
+                        </div>
+                        <div class="card-content" style="text-align: center;">
+                            <button type="button" class="btn btn-lg btn-primary form-group" style="width: 70%;margin-bottom: 0px!important;font-size: 15px!important;" (click)="search(apicallform)">Search Questions</button>
+                        </div>
+                    </div>
+                    <br  *ngIf="!isEmptyResult && showTotalResult" >
+                    <div class="card-body right_cards" *ngIf="!isEmptyResult && showTotalResult" >
+                        <div class="card-headline" style="text-align: center;">
+                            Total <span style="font-size: 16px!important;color: blue!important;">{{totalResult | number}}</span> results found for selected filters.
+                        </div>
+                        <div class="card-content" style="text-align: center;">
+                            <button type="button" class="btn btn-lg btn-success form-group" style="width: 70%;margin-bottom: 0px!important;font-size: 15px!important;" (click)="scrollToQuestionList('scrollPointQuestion')">View Questions</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card-body right_cards" *ngIf="isEmptyResult">
+                        <div class="card-headline" style="text-align: center;color: red;">
+                            No result Found for selected Criteris.
+                        </div>
+                        <div class="card-content" style="text-align: center;">
+                            Try again, by changing the filter values.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+
+    <div class="card" *ngIf="showQuestionList" id="scrollPointQuestion">
+        <div class="card-body">
+            <div class="card-headline" style="padding-left: 12px;">
+                Result - (Click on the question for detailed result)
+            </div>
+            <div class="card-content">
+                <form [formGroup]="apicallform" (ngSubmit)="search(apicallform)">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 table-responsive" style="padding-left: 25px;">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr style="line-height: 85%;">
+                                        <th scope="col" style="text-align: center;width: 4%;">#</th>
+                                        <th scope="col" style="width: 30%;">Question Body</th>
+                                        <th scope="col" style="width: 25%;">Tags</th>
+                                        <th scope="col" style="width: 8%;">Total Views</th>
+                                        <th scope="col" style="width: 10%;">Total Answers</th>
+                                        <th scope="col" style="text-align: center;width: 15%;">Accepted Answer</th>
+                                        <th scope="col" style="text-align: center;width: 8%;">StackOverflow Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of response| paginate : {                    
+                                                            itemsPerPage: tableSize,
+                                                            currentPage: page,
+                                                            totalItems: totalResult}; let i = index" style="line-height: 85%;">
+                                        <th scope="row">{{i+1+(page-1)*10}}</th>
+                                        <td><a href="javascript: void(0)" (click)="openDialog(item.question_id)" [innerHTML]="item.title"></a></td>
+                                        <td>{{item.tags}}</td>
+                                        <td>{{item.view_count}}</td>
+                                        <td>{{item.answer_count}}</td>
+                                        <td>{{item.body | slice:3:28}}<p style="margin-bottom: 0px!important;margin-top: 1px;"><a href="javascript: void(0)" (click)="openDialog(item.question_id)">read more..</a></p></td>
+                                        <td><a href="{{item.link}}" target="_blank">Click here</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center">
+                                <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+                                    (pageChange)="onTableDataChange($event)">
+                                </pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    
+
+    <div class="card" *ngIf="showAnswerList" id="scrollPointAnswer">
+        <div class="card-body">
+            <div class="card-headline row" style="padding-left: 12px;">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 table-responsive">
+                    Question Details
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 table-responsive"
+                    style="text-align: right;padding-right: 3%;padding-top: 1%;">
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="row" class="table-responsive" style="padding-left: 25px;padding-right: 25px;">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Question Id</th>
+                                <th scope="col" style="text-align: center;">Question Owner</th>
+                                <th scope="col" style="text-align: center;">Question asked on</th>
+                                <th scope="col" style="text-align: center;">Question closed on</th>
+                                <th scope="col" style="text-align: center;">Last edited on</th>
+                                <th scope="col" style="text-align: center;">Best Answer by</th>
+                                <th scope="col" style="text-align: center;">StackOverflow Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;">{{detailsQuesId}}</td>
+                                <td style="text-align: center;"><a href="{{detailsQuesOwnerLink}}" target="_blank">{{detailsQuesOwner}}</a></td>
+                                <td style="text-align: center;">{{detailsQuesAskedon  }}</td>
+                                <td style="text-align: center;">{{detailsQuesClosedon }}</td>
+                                <td style="text-align: center;">{{detailsQuesLastedit }}</td>
+                                <td *ngIf="detailsQuesAnsby == 'Not Answered Yet'" style="text-align: center;">{{detailsQuesAnsby}}</td>
+                                <td *ngIf="detailsQuesAnsby != 'Not Answered Yet'" style="text-align: center;"><a href="{{detailsQuesAnsbyLink}}" target="_blank">{{detailsQuesAnsby}}</a></td>
+                                <td style="text-align: center;"><a href="{{detailsQueslink}}" target="_blank">Click here</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    
+                <div class="row" class="table-responsive" style="width: 80%;margin: auto;">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: right;width: 20%;font-size: 15px;">Question :</th>
+                                <th scope="col" style="text-align: left;width: 80%;">{{detailsQuesdetail}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row" style="text-align: right;width: 20%;font-size: 15px;">Description:</th>
+                                <td style="text-align: left;width: 80%;" [innerHTML]="detailsQuesDesc"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-headline row" style="padding-left: 12px; ">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+                    Answer Detail
+                </div>                
+            </div>
+            <div class="card-content" >
+                <div class="row table-responsive" style="width: 80%;margin: auto;">
+                    <table class="table table-striped table-sm" *ngFor="let item of detailsQuesAnsList">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center;">Answer Id</th>
+                                <th scope="col" style="text-align: center;">Answer Owner</th>
+                                <th scope="col" style="text-align: center;">Answer votes</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr >
+                                <td style="text-align: center;">{{item.answer_id}}</td>
+                                <td style="text-align: center;"><a href="{{item['owner'].link}}"
+                                        target="_blank">{{item['owner'].display_name}}</a></td>
+                                <td style="text-align: center;">{{item.score}}</td>
+                            </tr>
+                            <tr >
+                                <th scope="row" style="text-align: right;width: 20%;font-size: 15px;">Description:</th>
+                                <td colspan="2" style="text-align: left;width: 80%;" [innerHTML]="item.body"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="text-align: right;margin-bottom: 10px;margin-right: 10px;">
+                <button type="button" class="btn btn-primary" (click)="scrollToQuestionList('scrollPointQuestion')">Back to Question List</button>
+            </div>
+        </div>
+    </div>
+    </main>
+</div> 
